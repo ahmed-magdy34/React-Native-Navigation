@@ -11,7 +11,7 @@ const renderContainer = (item) => {
     navigation.navigate('Recipes',{catId:item.id,name:item.title})
 
   }
-  return <CategoryGrid title={item.title} color={'#F4F8E3'} onPress={pressHandler} id={item.id} />;
+  return <CategoryGrid title={item.title} color={'lightblue'} onPress={pressHandler} id={item.id} />;
 };
   return (
     <FlatList
