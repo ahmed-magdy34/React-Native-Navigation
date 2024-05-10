@@ -1,24 +1,31 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { Image, StyleSheet, Text, View,ScrollView, Button } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import List from "../Components/List";
 import IconPress from "../Components/IconPress";
+import { FavouritesContext } from "../store/context/Favourites-Context";
 const Details=({route,navigation})=>{
+    const favouriteCtx=useContext(FavouritesContext)
     const mealId=route.params.mealId;
     const selectedMeal=MEALS.find((meal)=>meal.id===mealId);
-    const hbPressHandler=()=>{
-        return alert('Added to favourites')
+    const isFavourite=favouriteCtx.ids.includes(mealId);
+    const favPressHandler=()=>{
+        if(isFavourite){
+            favouriteCtx.removeFavourites(mealId)
+        }else{
+            favouriteCtx.addFavourites(mealId)
+        }
     }
   
     useLayoutEffect(()=>{
         navigation.setOptions({
             headerRight:()=>{
                 return(
-                    <IconPress icon='heart' onPress={hbPressHandler} color='white' />
+                    <IconPress icon={isFavourite?'star':'star-outline'} onPress={favPressHandler} color='white' />
                 )
             }
         })
-    },[navigation,hbPressHandler])
+    },[navigation,favPressHandler])
     return(
         <ScrollView style={{marginBottom:16}}>
             <Image style={styles.image} source={{uri:selectedMeal.imageUrl}} resizeMode="contain"/>

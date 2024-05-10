@@ -7,6 +7,7 @@ import Recipes from './Screens/Recipes';
 import Details from './Screens/Details';
 import FavouriteScreen from './Screens/FavouriteScreen';
 import {Ionicons} from '@expo/vector-icons'
+import FavouritesContextProvider from './store/context/Favourites-Context';
 const Stack=createNativeStackNavigator();
 const Drawer=createDrawerNavigator();
 /////////// Nesting Navigators/////////////
@@ -32,6 +33,8 @@ export default function App() {
   return (
     <>
     <StatusBar style='light' />
+    <FavouritesContextProvider>
+
     <NavigationContainer>
       <Stack.Navigator screenOptions={{
         headerStyle:{backgroundColor:'#3F4F4C'},
@@ -49,6 +52,7 @@ export default function App() {
 
  
     </NavigationContainer>
+        </FavouritesContextProvider>
     </>
   );
 }
